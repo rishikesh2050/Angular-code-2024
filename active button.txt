@@ -1,0 +1,24 @@
+activeBtn(e: Event) {
+    const target = e.target as HTMLElement;
+    for (let btn of Array.from(document.querySelectorAll('.ctzBtn'))) {
+      if (btn === target) {
+        if (btn.classList.contains('is-active')) {
+          return;
+        }
+        else {
+          btn.classList.add('is-active')
+        }
+      }
+      else {
+        btn.classList.remove('is-active')
+      }
+    }
+  }
+  
+  
+   <button (click)="activeBtn($event); populateMemberNameFromMemberList(possibleMember)"
+                          class="btn ctzBtn w-100 rounded-0">{{memberAuthTypeId == 1 ? (possibleMember.member_name | titlecase) : 
+                            (memberAuthTypeId == 2 ? (possibleMember.name | titlecase) : 
+                            (memberAuthTypeId == 3 ? (possibleMember.epic_name | titlecase) : 
+                            (memberAuthTypeId == 4 ? (possibleMember.name | titlecase) : "")))
+                          }}</button>

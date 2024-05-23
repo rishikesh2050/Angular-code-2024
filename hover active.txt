@@ -1,0 +1,13 @@
+  sliderHoverEffect(e){
+    for (let i = 1; i <= 5; i++) {
+      let finalid="#flexSlide"+i;      
+      $(finalid).removeClass("active")
+      // document.querySelector(`#flexSlide${i}`).classList.remove("active");
+    }
+    setTimeout(() => {
+      let finalid="#"+e;
+    $(finalid).addClass("active")
+    }, 10);
+    
+  }
+(mouseover)="sliderHoverEffect('flexSlide1')"

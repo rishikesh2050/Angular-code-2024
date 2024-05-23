@@ -1,0 +1,109 @@
+   <div class="row">
+                                          <div class="col-sm-12">
+                                              <div class="progress" role="progressbar" aria-label="Basic example" style="height: 2px"
+                                                  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                  <div #prgBar class="progress-bar bg-theme" style="height: 4px"></div>
+                                              </div>
+                                          </div>
+                                      </div>
+ <fieldset #fieldset1>
+ <div class="text-center mt-2">
+              <button class="btn btn-sm btn-yellow px-3"  (click)="validateStep1()">{{ 'next' | translate }} <i class="bi bi-arrow-right"></i></button>
+     </div>
+  </fieldset>
+     <fieldset #fieldset2 class="d-none">
+	   <div class="text-center">
+                              <button class="btn me-1 btn-sm btn-black text-white px-3" (click)="prevStep(1)">
+                                                  <i class="bi bi-arrow-left"></i>
+                                                  {{'previous'|translate}}
+                                                </button>
+                                     <button class="btn btn-yellow btn-sm ms-1 px-3" (click)="nextStep(3)">
+                                                  <i class="bi bi-arrow-right"></i> Next
+                                     </button>
+                               </div>
+         </fieldset>
+					
+     <fieldset #fieldset3 class="d-none">
+  <div class="text-center">
+                                              <button class="btn me-1 btn-sm btn-black text-white px-3" (click)="prevStep(2)">
+                                                <i class="bi bi-arrow-left"></i>
+                                                {{'previous'|translate}}
+                                              </button>
+                                              <button class="btn btn-yellow btn-sm ms-1 px-3"  (click)="nextStep(4)">
+                                                <i class="bi bi-arrow-right"></i> Next
+                                              </button>
+                                            </div>
+                                            </fieldset>
+     <fieldset #fieldset4 class="d-none">
+	 
+		 <div class="text-center">
+                                <button class="btn me-1 btn-sm btn-black text-white px-3" (click)="prevStep(3)">
+                                                <i class="bi bi-arrow-left"></i>
+                                                {{'previous'|translate}}
+                                              </button>
+                                              <button class="btn btn-yellow btn-sm ms-1 px-3" (click)="Submit()">
+                                                  {{ 'signUp' | translate }}
+                                              </button>
+            </div>
+       </fieldset>									
+.w-25{
+    width: 25%;
+}
+
+-------------- Angular ------------------------------------------
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+  @ViewChild('fieldset1') fieldset1: ElementRef | undefined;
+  @ViewChild('fieldset2') fieldset2: ElementRef | undefined;
+  @ViewChild('fieldset3') fieldset3: ElementRef | undefined;
+  @ViewChild('fieldset4') fieldset4: ElementRef | undefined;
+  @ViewChild('prgBar') prgBar: ElementRef | undefined;
+
+  validateStep1(){
+   this.nextStep(2);
+   }
+ 
+ nextStep(step: number) {
+    if (step === 2) {
+      this.renderer.addClass(this.fieldset1?.nativeElement, 'd-none');
+      this.renderer.removeClass(this.fieldset2?.nativeElement, 'd-none');
+      // this.renderer.removeClass(this.prgBar?.nativeElement, 'w-');
+      this.renderer.addClass(this.prgBar?.nativeElement, 'w-25');
+    }
+    if (step === 3) {
+      this.renderer.addClass(this.fieldset2?.nativeElement, 'd-none');
+      this.renderer.addClass(this.prgBar?.nativeElement, 'w-50');
+      this.renderer.removeClass(this.fieldset3?.nativeElement, 'd-none');
+    }
+    if (step === 4) {
+      this.renderer.addClass(this.fieldset3?.nativeElement, 'd-none');
+      this.renderer.removeClass(this.fieldset4?.nativeElement, 'd-none');
+      this.renderer.addClass(this.prgBar?.nativeElement, 'w-100');
+    }
+    // if (step === 5) {
+    //   this.renderer.addClass(this.fieldset4?.nativeElement, 'd-none');
+    //   this.renderer.removeClass(this.fieldset5?.nativeElement, 'd-none');
+    // }
+  }
+  prevStep(step: number) {
+    if (step === 1) {
+      this.renderer.addClass(this.fieldset2?.nativeElement, 'd-none')
+      this.renderer.removeClass(this.fieldset1?.nativeElement, 'd-none')
+      this.renderer.removeClass(this.prgBar?.nativeElement, 'w-25');
+    }
+    if (step === 2) {
+      this.renderer.addClass(this.fieldset3?.nativeElement, 'd-none')
+      this.renderer.removeClass(this.fieldset2?.nativeElement, 'd-none')
+      this.renderer.removeClass(this.prgBar?.nativeElement, 'w-50');
+      this.renderer.addClass(this.prgBar?.nativeElement, 'w-25');
+    }
+    if (step === 3) {
+      this.renderer.addClass(this.fieldset4?.nativeElement, 'd-none')
+      this.renderer.removeClass(this.fieldset3?.nativeElement, 'd-none')
+      this.renderer.removeClass(this.prgBar?.nativeElement, 'w-100');
+      this.renderer.addClass(this.prgBar?.nativeElement, 'w-50');
+    }
+    // if (step === 4) {
+    //   this.renderer.addClass(this.fieldset5?.nativeElement, 'd-none')
+    //   this.renderer.removeClass(this.fieldset4?.nativeElement, 'd-none')
+    // }
+  }
